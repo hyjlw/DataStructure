@@ -133,7 +133,7 @@ public class BinaryTree {
 	public void displayTree(){
 		Stack<Node> globalStack = new Stack<Node>();
 		globalStack.push(root);
-		int nBlanks = 32;
+		int nBlanks = 8;
 		boolean isRowEmpty = false;
 		System.out.println("-------------");
 		while(!isRowEmpty){
