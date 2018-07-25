@@ -18,29 +18,29 @@ public class MinHeap extends Heap {
 	}
 	
 	protected void trickleDown(int index) {
-		int nodeIndex = index;
-		
 		int smallerChild;
 		Node top = heapNodes[index];
 
-		while(nodeIndex < currentSize / 2) {
+		while(index < currentSize / 2) {
 			int leftChild = 2 * index + 1;
 			int rightChild = leftChild + 1;
 			
-			if(leftChild < currentSize && heapNodes[leftChild].getKey() < top.getKey()) {
+			if(rightChild < currentSize && heapNodes[leftChild].getKey() < top.getKey()) {
 				smallerChild = leftChild;
 			} else {
 				smallerChild = rightChild;
 			}
 			
-			if(heapNodes[smallerChild].getKey() > top.getKey()) {
+			if(heapNodes[smallerChild].getKey() >= top.getKey()) {
 				break;
 			}
 			
-			heapNodes[nodeIndex] = heapNodes[smallerChild];
+			heapNodes[index] = heapNodes[smallerChild];
 			
-			nodeIndex = smallerChild;
+			index = smallerChild;
 		}
+		
+		heapNodes[index] = top;
 	}
 	
 	
@@ -49,7 +49,7 @@ public class MinHeap extends Heap {
 		
 		int parent = (index - 1) / 2;
 		while(index > 0) {
-			if(heapNodes[parent].getKey() > heapNodes[index].getKey()) {
+			if(heapNodes[parent].getKey() > bottom.getKey()) {
 				heapNodes[index] = heapNodes[parent];
 			} else {
 				break;

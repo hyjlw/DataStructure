@@ -21,4 +21,12 @@ public class Node {
 	public void setKey(int data){
 		this.data = data;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Node [" + data + "]";
+	}
 }

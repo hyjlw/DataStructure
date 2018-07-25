@@ -12,8 +12,10 @@ public class TestHeap {
 		int size = 31;
 		Heap heap = new MinHeap(size);
 		
-		for(int i=0;i<16; i++){
-			heap.insert((int) (Math.random()*100));
+		for(int i=0;i<20; i++){
+			int key = (int) (Math.random()*100);
+			System.out.println("insert key: " + key);
+			heap.insert(key);
 		}
 		
 		heap.display();
