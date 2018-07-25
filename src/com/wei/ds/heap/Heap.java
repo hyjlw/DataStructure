@@ -7,91 +7,42 @@ package com.wei.ds.heap;
  * @author LL
  *
  */
-public class Heap {
-	private Node []heapArray;
-	private int maxSize;
-	private int currentSize;
+public abstract class Heap {
+	private static final int DEFAULT_SIZE = 32;
 	
-	public Heap(int size){
+	protected Node []heapNodes;
+	protected int maxSize;
+	protected int currentSize;
+	
+	public Heap() {
+		this(DEFAULT_SIZE);
+	}
+	
+	public Heap(int size) {
 		this.maxSize = size;
-		currentSize = 0;
-		heapArray = new Node[maxSize];
+		this.currentSize = 0;
+		this.heapNodes = new Node[size];
 	}
 	
 	public boolean isEmpty(){
 		return currentSize == 0;
 	}
 	
-	public void insert(int key){
-		if(currentSize == maxSize){
-			throw new RuntimeException("The heap is full.");
-		}
-		Node newNode = new Node(key);
-		heapArray[currentSize] = newNode;
-		trickleUp(currentSize++);
-	}
+	public abstract void insert(int key);
 
-	private void trickleUp(int index) {
-		int parent = (index - 1)/2;
-		Node bottom = heapArray[index];
-		while(index > 0 && heapArray[parent].getKey() < bottom.getKey()){
-			heapArray[index] = heapArray[parent];
-			index = parent;
-			parent = (parent - 1)/2;
-		}
-		heapArray[index] = bottom;
-	}
+	protected abstract void trickleUp(int index) ;
 	
-	public Node remove(){
-		Node root  = heapArray[0];
-		heapArray[0] = heapArray[--currentSize];
-		trickleDown(0);
-		
-		return root;
-	}
+	public abstract Node remove();
 
-	private void trickleDown(int index) {
-		int largerChild;
-		Node top = heapArray[index];
-		while(index < currentSize/2){
-			int leftChild = 2*index + 1;
-			int rightChild = leftChild + 1;
-			
-			if(rightChild < currentSize && heapArray[leftChild].getKey() < heapArray[rightChild].getKey()){
-				largerChild = rightChild;
-			}else{
-				largerChild = leftChild;
-			}
-			
-			if(top.getKey() >= heapArray[largerChild].getKey()){
-				break;
-			}
-			
-			heapArray[index] = heapArray[largerChild];
-			index = largerChild;
-		}
-		heapArray[index] = top;
-	}
+	protected abstract void trickleDown(int index) ;
 	
-	public void change(int index, int newValue){
-		if(index < 0 || index >= currentSize){
-			throw new RuntimeException("Invalid index: " + index);
-		}
-		int oldValue = heapArray[index].getKey();
-		heapArray[index].setKey(newValue);
-		
-		if(oldValue<newValue){
-			trickleUp(index);
-		}else{
-			trickleDown(index);
-		}
-	}
+	public abstract void change(int index, int newValue);
 	
 	public void display(){
 		System.out.print("Heap Array: ");
 		for(int m=0; m<currentSize; m++){
-			if(heapArray[m] != null){
-				System.out.print(heapArray[m].getKey() + " ");
+			if(heapNodes[m] != null){
+				System.out.print(heapNodes[m].getKey() + " ");
 			}else{
 				System.out.print("-- ");
 			}
@@ -111,7 +62,7 @@ public class Heap {
 					System.out.print(" ");
 				}
 			}
-			System.out.print(heapArray[j].getKey());
+			System.out.print(heapNodes[j].getKey());
 			if(++j == currentSize){
 				break;
 			}

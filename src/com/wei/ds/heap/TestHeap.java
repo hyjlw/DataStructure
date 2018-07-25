@@ -10,7 +10,7 @@ package com.wei.ds.heap;
 public class TestHeap {
 	public static void main(String []args){
 		int size = 31;
-		Heap heap = new Heap(size);
+		Heap heap = new MinHeap(size);
 		
 		for(int i=0;i<16; i++){
 			heap.insert((int) (Math.random()*100));
@@ -18,12 +18,15 @@ public class TestHeap {
 		
 		heap.display();
 		
+		System.out.println("insert value: 23");
 		heap.insert(23);
 		heap.display();
 		
+		System.out.println("remove top value");
 		heap.remove();
 		heap.display();
 		
+		System.out.println("change value of index[5] to: 77");
 		heap.change(5, 77);
 		heap.display();
 		
@@ -33,7 +36,7 @@ public class TestHeap {
 	public static void heapSort(){
 		int size = 31;
 		int heapSize = 16;
-		Heap heap = new Heap(size);
+		MaxHeap heap = new MaxHeap(size);
 		
 		for(int i=0;i<heapSize; i++){
 			heap.insert((int) (Math.random()*100));
